@@ -1,6 +1,5 @@
 #include "podcaster.h"
 
-Podcaster::Podcaster(){}
 Podcaster::Podcaster(string nome, int codigo){
     this->set_nome(nome);
     this->set_codigo(codigo);

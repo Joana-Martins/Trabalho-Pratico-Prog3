@@ -10,7 +10,6 @@
 class Podcaster: public Produtor{
     public:
         vector<Podcast*> podcasts;
-        Podcaster();
         Podcaster(string nome, int codigo);
         ~Podcaster();
         void set_podcasts(Podcast* podcast);

@@ -9,6 +9,7 @@
 #include<string> 
 #include"podcast.h"
 #include"usuario.h"
+#include"album.h"
 
 using namespace std;
 
@@ -34,7 +35,7 @@ int main(){
         Midia::Genero* aux=new Midia::Genero(nome,sigla);
         generos.push_back(aux);
     }
-
+    /*
     rows = -1;
     ifstream infile_usuarios;
     infile_usuarios.open("usuarios.csv");
@@ -56,7 +57,7 @@ int main(){
         Usuario* aux = new Usuario(nome,stoi(codigo));
         usuarios.push_back(aux);
     }
-
+    */
 
     PlataformaDigital* pd = new PlataformaDigital("nome plataforma");
     pd->generos = generos;

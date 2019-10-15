@@ -24,6 +24,7 @@ class PlataformaDigital{
         string get_nome();
         PlataformaDigital();
         PlataformaDigital(string nome);
+        ~PlataformaDigital();
         void imprimeProdutos(string genero);
         void imprimeAssinantes();
         void inserirAssinante(Assinante* assinante);

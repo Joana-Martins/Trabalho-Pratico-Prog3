@@ -4,6 +4,9 @@ PlataformaDigital::PlataformaDigital(){}
 PlataformaDigital::PlataformaDigital(string nome){
     this->set_nome(nome);
 }
+PlataformaDigital::~PlataformaDigital(){
+    delete[] this->generos[0];
+}
 void PlataformaDigital::set_nome(string nome){
     this->nome = nome;
 }        
@@ -12,9 +15,11 @@ string PlataformaDigital::get_nome(){
 }
 void PlataformaDigital::imprimeProdutos(string genero){
     for(int i=0;i<this->generos.size();i++){
-        cout<<"Nome: "<<this->generos[i]->get_nome()<<endl;
-        cout<<"Sigla: "<<this->generos[i]->get_sigla()<<endl;
-        cout<<endl;
+        if(this->generos[i]->get_nome().compare(genero) == 0){
+            cout<<"Nome: "<<this->generos[i]->get_nome()<<endl;
+            cout<<"Sigla: "<<this->generos[i]->get_sigla()<<endl;
+            cout<<endl;
+        }
     }
 }
 /* void imprimeAssinantes();

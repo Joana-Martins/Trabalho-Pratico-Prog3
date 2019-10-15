@@ -1,6 +1,5 @@
 #include"artista.h"
 
-Artista::Artista(){}
 Artista::Artista(string nome, int codigo){
     this->set_nome(nome);
     this->set_codigo(codigo);
@@ -15,4 +14,10 @@ void Artista::imprimeNoArquivo(ofstream &outfile){
         outfile<<"Genero: "<<this->get_midias()[i]->get_genero().get_nome()<<endl;
         outfile<<"Sigla: "<<this->get_midias()[i]->get_genero().get_sigla()<<endl;
     }
+}
+void Artista::set_albuns(Album* album){
+    this->albuns.push_back(album);
+}
+vector<Album*> Artista::get_albuns(){
+    return this->albuns;
 }
