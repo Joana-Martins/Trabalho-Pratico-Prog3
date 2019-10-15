@@ -8,7 +8,7 @@ Album::Album(string nome, int duracao, int ano, int qtd){
     this->set_qtdMusicas(qtd);
 }
 Album::~Album(){}
-void Album::set_nome(string nome){
+void Album::set_nome(string nome){ 
     this->nome = nome;
 }
 void Album::set_duracao(int duracao){
