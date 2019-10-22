@@ -73,12 +73,19 @@ void PlataformaDigital::carregaArquivoMidias(ifstream &midias){
         getline(linha, album, ';');
         getline(linha, codigoAlbum, ';');
         getline(linha, anoPublicacao, ';');
+
         this->midias.push_back(new Midia(nome, stoi(codigo), * new Midia::Genero("", genero)));
         for(int j=0;j<duracao.size();j++){
             if(duracao[j]==',') duracao[j] = '.';
         }
         this->midias[i]->set_duracao(stof(duracao));
         this->midias[i]->set_anoLancamento(stoi(anoPublicacao));
+
+        for(int i=0;i<this->produtores.size();i++){
+            if(!produtores.empty()){
+                if(this->produtores[i]->get_codigo() == stoi(produtores)) this->produtores[i]->midias.push_back(this->midias[stoi(codigo)-1]);
+            }
+        }
         i++;
     }
 }
