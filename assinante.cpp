@@ -29,3 +29,29 @@ void Assinante::removerFavorito(Midia* favorito){
         this->favoritos.erase(this->favoritos.begin() + posicao - 1);
     }
 }
+int Assinante::partition(int p, int r){
+    Midia* aux;
+    string x = this->favoritos[r]->get_tipo();
+    int i = p-1;
+    for(int j=p;j<r;j++){
+        if(this->favoritos[j]->get_tipo().compare(x) > 0){
+            i++;
+            aux = this->favoritos[i];
+            this->favoritos[i] = this->favoritos[j];
+            this->favoritos[j] = aux;
+        }
+    }
+    aux = this->favoritos[i+1];
+    this->favoritos[i+1] = this->favoritos[r];
+    this->favoritos[r] = aux;
+
+    return i+1;
+}
+void Assinante::quicksort(int p, int r){
+    int q;
+    if(p<r){
+        q=partition(p,r);
+        quicksort(p,q-1);
+        quicksort(q+1,r);
+    }
+}

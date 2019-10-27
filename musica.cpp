@@ -1,7 +1,7 @@
 #include"musica.h"
 
 Musica::Musica(){}
-Musica::Musica(string nome, Genero gen, int duracao, int ano): Midia(nome,codigo,genero){
+Musica::Musica(string nome, Genero gen, float duracao, int ano): Midia(nome,codigo,genero){
     this->set_nome(nome);
     this->set_genero(gen);
     this->set_duracao(duracao);

@@ -12,6 +12,7 @@ class Midia{
         int codigo;
         float duracao;
         int anoLancamento;
+        string tipo;
     public:
         class Genero{
             private:
@@ -37,11 +38,13 @@ class Midia{
         void set_duracao(float duracao);
         void set_anoLancamento(int anoLancamento);
         void set_genero(Genero genero);
+        void set_tipo(string tipo);
         string get_nome();
         int get_codigo();
         float get_duracao();
         int get_anoLancamento();
         Genero get_genero();
+        string get_tipo();
         virtual void imprimeInfoProduto(){}
         virtual void imprimeNoArquivo(ofstream &outfile){}
 };

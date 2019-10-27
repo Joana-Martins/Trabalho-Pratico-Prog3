@@ -8,7 +8,9 @@
 #include<istream>
 #include<sstream>
 #include<string>
+#include <bits/stdc++.h> 
 #include"midia.h"
+#include"album.h"
 #include"assinante.h"
 #include"produtor.h"
 
@@ -24,6 +26,7 @@ class PlataformaDigital{
         vector<Midia::Genero*> generos;
         vector<Midia*> midias;
         vector<Produtor*> produtores;
+        vector<Album*> albuns;
         void set_nome(string nome);
         string get_nome();
         PlataformaDigital();
@@ -41,6 +44,8 @@ class PlataformaDigital{
         void exportarBiblioteca();
         void gerarRelatorios();
         void carregaArquivoFavoritos(ifstream &infile);
+        int partition_produtores(int p, int r);
+        void ordena_produtores(int p, int r);
 };
 
 #endif

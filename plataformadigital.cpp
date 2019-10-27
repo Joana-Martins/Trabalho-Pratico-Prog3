@@ -29,7 +29,31 @@ void inserirProduto(Midia* novoProduto, vector<Produtor*> produtores);
 void imprimeNoArquivo(ofstream &outfile);
 void exportarBiblioteca();
 */
-//void gerarRelatorios();
+void PlataformaDigital::gerarRelatorios(){
+    ofstream mpp;
+    mpp.open("produtores.csv");
+    for(Produtor* produtor : this->produtores){
+        mpp<<produtor->get_nome().erase(produtor -> get_nome().size() - 1)<<";";
+        for(Midia* midia : produtor->midias){
+            mpp<<midia->get_nome()<<",";
+        }
+        mpp<<endl;
+    }
+
+    ofstream f;
+    f.open("favorito.csv");
+    for(Assinante* assinante:this->assinantes){
+        if(assinante->favoritos.empty()) f<<assinante->get_codigo()<<";"<<endl;
+        for(Midia* midia:assinante->favoritos){
+            f<<assinante->get_codigo()<<";";
+            f<<midia->get_tipo()<<";";
+            f<<midia->get_codigo()<<";";
+            f<<midia->get_genero().get_sigla()<<";";
+            f<<midia->get_duracao();
+            f<<endl;
+        }
+    }
+}
 
 void PlataformaDigital::carregaArquivoUsuarios(ifstream &usuarios){
     string s, codigo, tipo, nome;
@@ -78,17 +102,28 @@ void PlataformaDigital::carregaArquivoMidias(ifstream &midias){
         for(int j=0;j<duracao.size();j++){
             if(duracao[j]==',') duracao[j] = '.';
         }
+        this->midias[i]->set_tipo(tipo);
         this->midias[i]->set_duracao(stof(duracao));
         this->midias[i]->set_anoLancamento(stoi(anoPublicacao));
-
-        for(int i=0;i<this->produtores.size();i++){
-            if(!produtores.empty()){
-                if(this->produtores[i]->get_codigo() == stoi(produtores)) this->produtores[i]->midias.push_back(this->midias[stoi(codigo)-1]);
+        
+        string p1;
+        istringstream s(produtores);
+        while(getline(s,p1,',')){
+            for(int i=0;i<this->produtores.size();i++){
+                if(!p1.empty()){
+                    if(this->produtores[i]->get_codigo() == stoi(p1)) this->produtores[i]->midias.push_back(this->midias[stoi(codigo)-1]);
+                }
             }
         }
+
+        Album* aux = new Album(codigoAlbum, stof(duracao), stoi(anoPublicacao), 0);
+        this->albuns.push_back(aux);
+
         i++;
     }
+    this->ordena_produtores(0, this->produtores.size()-1);
 }
+
 void PlataformaDigital::carregaArquivoFavoritos(ifstream &favoritos){
     string s, codigo, musica;
     getline(favoritos, s, '\n');
@@ -103,5 +138,34 @@ void PlataformaDigital::carregaArquivoFavoritos(ifstream &favoritos){
                 }
             }
         }
+    }
+
+    for(Assinante* assinante:this->assinantes){
+        if(!assinante->get_favoritos().empty()) assinante->quicksort(0,assinante->favoritos.size()-1);
+    }
+}
+int PlataformaDigital::partition_produtores(int p, int r){
+    Produtor* aux;
+    string x = this->produtores[r]->get_nome();
+    int i = p-1;
+    for(int j=p;j<r;j++){
+        if(this->produtores[j]->get_nome().compare(x) <= 0){
+            i++;
+            aux = this->produtores[i];
+            this->produtores[i] = this->produtores[j];
+            this->produtores[j] = aux;
+        }
+    }
+    aux = this->produtores[i+1];
+    this->produtores[i+1] = this->produtores[r];
+    this->produtores[r] = aux;
+    return i+1;
+}
+void PlataformaDigital::ordena_produtores(int p, int r){
+    int q;
+    if(p<r){
+        q=this->partition_produtores(p,r);
+        this->ordena_produtores(p,q-1);
+        this->ordena_produtores(q+1,r);
     }
 }

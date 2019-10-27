@@ -21,6 +21,8 @@ class Assinante: public Usuario{
         void inserirFavorito(Midia* favorito);
         void removerFavorito(Midia* favorito);
         virtual void imprimeNoArquivo(ofstream &outfile){}
+        int partition(int p, int r);
+        void quicksort(int p, int r);
 };
 
 #endif

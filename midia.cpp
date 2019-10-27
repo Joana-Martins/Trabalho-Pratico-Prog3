@@ -41,6 +41,10 @@ void Midia::set_anoLancamento(int anoLancamento){
 void Midia::set_genero(Midia::Genero genero){
     this->genero = genero;
 }
+void Midia::set_tipo(string tipo){
+    if(tipo.compare("P") == 0) this->tipo = "Podcast";
+    if(tipo.compare("M") == 0) this->tipo = "Musica";
+}
 string Midia::get_nome(){
     return this->nome;
 }
@@ -55,6 +59,9 @@ int Midia::get_anoLancamento(){
 }
 Midia::Genero Midia::get_genero(){
     return this->genero;
+}
+string Midia::get_tipo(){
+    return this->tipo;
 }
 int Midia::qtdProdutos = 0;
 void Midia::imprimeQtdProdutos(){

@@ -1,7 +1,7 @@
 #include"album.h"
 
 Album::Album(){}
-Album::Album(string nome, int duracao, int ano, int qtd){
+Album::Album(string nome, float duracao, int ano, int qtd){
     this->set_nome(nome);
     this->set_duracao(duracao);
     this->set_anoLancamento(ano);
@@ -11,7 +11,7 @@ Album::~Album(){}
 void Album::set_nome(string nome){
     this->nome = nome;
 }
-void Album::set_duracao(int duracao){
+void Album::set_duracao(float duracao){
     this->duracao = duracao;
 }
 void Album::set_anoLancamento(int anoLancamento){

@@ -9,7 +9,7 @@ using namespace std;
 class Musica: public Midia{
     public:
         Musica();
-        Musica(string nome, Genero gen, int duracao, int ano);
+        Musica(string nome, Genero gen, float duracao, int ano);
         ~Musica();
         void imprimeInfoProduto();
         void imprimeNoArquivo(ofstream &outfile);
