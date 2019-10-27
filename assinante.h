@@ -23,6 +23,9 @@ class Assinante: public Usuario{
         virtual void imprimeNoArquivo(ofstream &outfile){}
         int partition(int p, int r);
         void quicksort(int p, int r);
+        int partition_(int p, int r);
+        void quicksort_(int p, int r);
+        int conta_podcasts();
 };
 
 #endif

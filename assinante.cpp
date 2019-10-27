@@ -55,3 +55,36 @@ void Assinante::quicksort(int p, int r){
         quicksort(q+1,r);
     }
 }
+int Assinante::partition_(int p, int r){
+    Midia* aux;
+    int x = this->favoritos[r]->get_codigo();
+    int i = p-1;
+    for(int j=p;j<r;j++){
+        if(this->favoritos[j]->get_codigo() <= x){
+            i++;
+            aux = this->favoritos[i];
+            this->favoritos[i] = this->favoritos[j];
+            this->favoritos[j] = aux;
+        }
+    }
+    aux = this->favoritos[i+1];
+    this->favoritos[i+1] = this->favoritos[r];
+    this->favoritos[r] = aux;
+
+    return i+1;
+}
+void Assinante::quicksort_(int p, int r){
+    int q;
+    if(p<r){
+        q=partition_(p,r);
+        quicksort_(p,q-1);
+        quicksort_(q+1,r);
+    }
+}
+int Assinante::conta_podcasts(){
+    int n_podcasts = 0;
+    for(Midia* midia:this->favoritos){
+        if(midia->get_tipo().compare("Podcast") == 0) n_podcasts++;
+    }
+    return n_podcasts-1;
+}

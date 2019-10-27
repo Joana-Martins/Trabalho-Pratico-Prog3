@@ -30,6 +30,32 @@ void imprimeNoArquivo(ofstream &outfile);
 void exportarBiblioteca();
 */
 void PlataformaDigital::gerarRelatorios(){
+    ofstream u;
+    u.open("backup.txt");
+    for(Assinante* assinante:this->assinantes){
+        u<<assinante->get_codigo()<<";";
+        u<<assinante->get_nome();
+    }
+    for(Produtor* produtor:this->produtores){
+        u<<produtor->get_codigo()<<";";
+        u<<produtor->get_nome();
+    }
+    u<<"Midias:"<<endl;
+    for(Midia* midia:this->midias){
+        u<<midia->get_nome()<<";";
+        u<<midia->get_tipo()<<";";
+        for(Produtor* produtor:this->produtores){
+            for(Midia* aux:produtor->midias){
+                if(aux->get_codigo()==midia->get_codigo()){
+                    u<<produtor->get_nome().erase(produtor->get_nome().size()-1)<<";";
+                }
+            }
+        }
+        u<<midia->get_duracao()<<";";
+        u<<midia->get_genero().get_nome().erase(midia->get_genero().get_nome().size() - 1)<<";";
+        u<<midia->get_anoLancamento()<<endl;
+    }
+    this->quicksort(0, this->produtores.size()-1);
     ofstream mpp;
     mpp.open("produtores.csv");
     for(Produtor* produtor : this->produtores){
@@ -48,7 +74,7 @@ void PlataformaDigital::gerarRelatorios(){
             f<<assinante->get_codigo()<<";";
             f<<midia->get_tipo()<<";";
             f<<midia->get_codigo()<<";";
-            f<<midia->get_genero().get_sigla()<<";";
+            f<<midia->get_genero().get_nome().erase(midia->get_genero().get_nome().size() - 1)<<";";
             f<<midia->get_duracao();
             f<<endl;
         }
@@ -98,7 +124,15 @@ void PlataformaDigital::carregaArquivoMidias(ifstream &midias){
         getline(linha, codigoAlbum, ';');
         getline(linha, anoPublicacao, ';');
 
-        this->midias.push_back(new Midia(nome, stoi(codigo), * new Midia::Genero("", genero)));
+        string p1;
+        istringstream s1(genero);
+        getline(s1,p1,',');
+        for(Midia::Genero* aux:this->generos){
+            if(aux->get_sigla().compare(p1)==0){
+                this->midias.push_back(new Midia(nome, stoi(codigo), * new Midia::Genero(aux->get_nome(), p1)));
+            }
+        }
+        
         for(int j=0;j<duracao.size();j++){
             if(duracao[j]==',') duracao[j] = '.';
         }
@@ -106,22 +140,20 @@ void PlataformaDigital::carregaArquivoMidias(ifstream &midias){
         this->midias[i]->set_duracao(stof(duracao));
         this->midias[i]->set_anoLancamento(stoi(anoPublicacao));
         
-        string p1;
-        istringstream s(produtores);
-        while(getline(s,p1,',')){
+        string p2;
+        istringstream s2(produtores);
+        while(getline(s2,p2,',')){
             for(int i=0;i<this->produtores.size();i++){
-                if(!p1.empty()){
-                    if(this->produtores[i]->get_codigo() == stoi(p1)) this->produtores[i]->midias.push_back(this->midias[stoi(codigo)-1]);
+                if(!p2.empty()){
+                    if(this->produtores[i]->get_codigo() == stoi(p2)) this->produtores[i]->midias.push_back(this->midias[stoi(codigo)-1]);
                 }
             }
         }
 
-        Album* aux = new Album(codigoAlbum, stof(duracao), stoi(anoPublicacao), 0);
-        this->albuns.push_back(aux);
-
         i++;
     }
-    this->ordena_produtores(0, this->produtores.size()-1);
+    Album* aux = new Album(codigoAlbum, stof(duracao), stoi(anoPublicacao), 0);
+    this->albuns.push_back(aux);
 }
 
 void PlataformaDigital::carregaArquivoFavoritos(ifstream &favoritos){
@@ -142,9 +174,11 @@ void PlataformaDigital::carregaArquivoFavoritos(ifstream &favoritos){
 
     for(Assinante* assinante:this->assinantes){
         if(!assinante->get_favoritos().empty()) assinante->quicksort(0,assinante->favoritos.size()-1);
-    }
+        assinante->quicksort_(0,assinante->conta_podcasts());
+        assinante->quicksort_(assinante->conta_podcasts()+1,assinante->favoritos.size()-1);
+        }
 }
-int PlataformaDigital::partition_produtores(int p, int r){
+int PlataformaDigital::partition(int p, int r){
     Produtor* aux;
     string x = this->produtores[r]->get_nome();
     int i = p-1;
@@ -161,11 +195,11 @@ int PlataformaDigital::partition_produtores(int p, int r){
     this->produtores[r] = aux;
     return i+1;
 }
-void PlataformaDigital::ordena_produtores(int p, int r){
+void PlataformaDigital::quicksort(int p, int r){
     int q;
     if(p<r){
-        q=this->partition_produtores(p,r);
-        this->ordena_produtores(p,q-1);
-        this->ordena_produtores(q+1,r);
+        q=this->partition(p,r);
+        this->quicksort(p,q-1);
+        this->quicksort(q+1,r);
     }
 }

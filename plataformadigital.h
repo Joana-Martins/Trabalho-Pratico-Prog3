@@ -44,8 +44,8 @@ class PlataformaDigital{
         void exportarBiblioteca();
         void gerarRelatorios();
         void carregaArquivoFavoritos(ifstream &infile);
-        int partition_produtores(int p, int r);
-        void ordena_produtores(int p, int r);
+        int partition(int p, int r);
+        void quicksort(int p, int r);
 };
 
 #endif

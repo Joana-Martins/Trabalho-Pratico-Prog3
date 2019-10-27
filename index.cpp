@@ -13,33 +13,6 @@
 
 using namespace std;
 
-int par(Assinante* assinante, int p, int r){
-    Midia* aux;
-    string x = assinante->favoritos[r]->get_tipo();
-    int i = p-1;
-    for(int j=p;j<r;j++){
-        if(assinante->favoritos[j]->get_tipo().compare(x) > 0){
-            i++;
-            aux = assinante->favoritos[i];
-            assinante->favoritos[i] = assinante->favoritos[j];
-            assinante->favoritos[j] = aux;
-        }
-    }
-    aux = assinante->favoritos[i+1];
-    assinante->favoritos[i+1] = assinante->favoritos[r];
-    assinante->favoritos[r] = aux;
-    return i+1;
-}
-
-void quick(Assinante* assinante, int p, int r){
-    int q;
-    if(p<r){
-        q=par(assinante,p,r);
-        quick(assinante,p,q-1);
-        quick(assinante,q+1,r);
-    }
-}
-
 int main(int argc, char* argv[]){
     if(argc != 9){
         cerr<<"Numero de parametros insuficientes."<<endl;
