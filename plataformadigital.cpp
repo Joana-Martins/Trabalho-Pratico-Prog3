@@ -47,12 +47,20 @@ void PlataformaDigital::gerarRelatorios(){
         for(Produtor* produtor:this->produtores){
             for(Midia* aux:produtor->midias){
                 if(aux->get_codigo()==midia->get_codigo()){
-                    u<<produtor->get_nome().erase(produtor->get_nome().size()-1)<<";";
+                    u<<produtor->get_nome().erase(produtor->get_nome().size()-1)<<" ";
                 }
             }
         }
         u<<midia->get_duracao()<<";";
         u<<midia->get_genero().get_nome().erase(midia->get_genero().get_nome().size() - 1)<<";";
+        for(Album* album:this->albuns){
+            for(Musica* musica:album->musicas){
+                if(musica->get_nome().compare(midia->get_nome())==0){
+                    u<<album->get_nome();
+                }
+            }
+        }
+        u<<";";
         u<<midia->get_anoLancamento()<<endl;
     }
     this->quicksort(0, this->produtores.size()-1);
@@ -109,7 +117,6 @@ void PlataformaDigital::carregaArquivoGeneros(ifstream &generos){
 void PlataformaDigital::carregaArquivoMidias(ifstream &midias){
     string s, codigo, nome, tipo, produtores, duracao, genero, temporada, album, codigoAlbum, anoPublicacao;
     getline(midias, s, '\n');
-    int i=0;
 
     while(getline(midias,s)){
         istringstream linha(s);
@@ -124,21 +131,24 @@ void PlataformaDigital::carregaArquivoMidias(ifstream &midias){
         getline(linha, codigoAlbum, ';');
         getline(linha, anoPublicacao, ';');
 
-        string p1;
-        istringstream s1(genero);
-        getline(s1,p1,',');
-        for(Midia::Genero* aux:this->generos){
-            if(aux->get_sigla().compare(p1)==0){
-                this->midias.push_back(new Midia(nome, stoi(codigo), * new Midia::Genero(aux->get_nome(), p1)));
-            }
-        }
-        
         for(int j=0;j<duracao.size();j++){
             if(duracao[j]==',') duracao[j] = '.';
         }
-        this->midias[i]->set_tipo(tipo);
-        this->midias[i]->set_duracao(stof(duracao));
-        this->midias[i]->set_anoLancamento(stoi(anoPublicacao));
+
+        Midia::Genero* gen;
+        string sigla;
+        istringstream s1(genero);
+        getline(s1,sigla,',');
+        for(Midia::Genero* g:this->generos){
+            if(g->get_sigla().compare(sigla)==0){
+                gen = new Midia::Genero(g->get_nome(), sigla);
+                Midia* midia = new Midia(nome, stoi(codigo), *gen);
+                midia->set_tipo(tipo);
+                midia->set_duracao(stof(duracao));
+                midia->set_anoLancamento(stoi(anoPublicacao));
+                this->midias.push_back(midia);
+            }
+        }
         
         string p2;
         istringstream s2(produtores);
@@ -150,10 +160,17 @@ void PlataformaDigital::carregaArquivoMidias(ifstream &midias){
             }
         }
 
-        i++;
+        if(!codigoAlbum.empty()){
+            int i=0;
+            for(Album* alb:this->albuns){
+                if(alb->get_nome().compare(codigoAlbum)!=0) i++;
+            }
+            if(i==this->albuns.size()) this->albuns.push_back(new Album(codigoAlbum, stoi(duracao), stoi(anoPublicacao),0));
+        }
+        for(Album* alb:this->albuns){
+            if(alb->get_nome().compare(codigoAlbum)==0) alb->musicas.push_back(new Musica(nome, *gen, stof(duracao), stoi(anoPublicacao)));
+        }
     }
-    Album* aux = new Album(codigoAlbum, stof(duracao), stoi(anoPublicacao), 0);
-    this->albuns.push_back(aux);
 }
 
 void PlataformaDigital::carregaArquivoFavoritos(ifstream &favoritos){

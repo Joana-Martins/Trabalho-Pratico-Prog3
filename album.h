@@ -16,10 +16,10 @@ class Album{
     public:
         vector<Musica*> musicas;
         Album();
-        Album(string nome, float duracao, int ano, int qtd);
+        Album(string nome, int duracao, int ano, int qtd);
         ~Album();
         void set_nome(string nome);
-        void set_duracao(float duracao);
+        void set_duracao(int duracao);
         void set_anoLancamento(int anoLancamento);
         void set_qtdMusicas(int qtdMusicas);
         void set_musicas(Musica* musica);
