@@ -32,6 +32,7 @@ void exportarBiblioteca();
 void PlataformaDigital::gerarRelatorios(){
     ofstream u;
     u.open("backup.txt");
+    u<<"Usuários:"<<endl;
     for(Assinante* assinante:this->assinantes){
         u<<assinante->get_codigo()<<";";
         u<<assinante->get_nome();
@@ -40,6 +41,8 @@ void PlataformaDigital::gerarRelatorios(){
         u<<produtor->get_codigo()<<";";
         u<<produtor->get_nome();
     }
+    u<<endl;
+    u<<endl;
     u<<"Midias:"<<endl;
     for(Midia* midia:this->midias){
         u<<midia->get_nome()<<";";
@@ -47,12 +50,17 @@ void PlataformaDigital::gerarRelatorios(){
         for(Produtor* produtor:this->produtores){
             for(Midia* aux:produtor->midias){
                 if(aux->get_codigo()==midia->get_codigo()){
-                    u<<produtor->get_nome().erase(produtor->get_nome().size()-1)<<" ";
+                    u<<produtor->get_nome().erase(produtor->get_nome().size()-1)<<",";
                 }
             }
         }
+        u<<";";
         u<<midia->get_duracao()<<";";
         u<<midia->get_genero().get_nome().erase(midia->get_genero().get_nome().size() - 1)<<";";
+        if(midia->get_tipo().compare("Podcast")==0){
+            Podcast* p=(Podcast*)midia;
+            u<<p->get_qtdTemporadas()<<";";
+        }
         for(Album* album:this->albuns){
             for(Musica* musica:album->musicas){
                 if(musica->get_nome().compare(midia->get_nome())==0){
@@ -67,9 +75,10 @@ void PlataformaDigital::gerarRelatorios(){
     ofstream mpp;
     mpp.open("produtores.csv");
     for(Produtor* produtor : this->produtores){
+        produtor->quicksort(0,produtor->midias.size()-1);
         mpp<<produtor->get_nome().erase(produtor -> get_nome().size() - 1)<<";";
         for(Midia* midia : produtor->midias){
-            mpp<<midia->get_nome()<<",";
+            mpp<<midia->get_nome()<<";";
         }
         mpp<<endl;
     }
@@ -86,6 +95,80 @@ void PlataformaDigital::gerarRelatorios(){
             f<<midia->get_duracao();
             f<<endl;
         }
+    }
+
+    ofstream e;
+    e.open("estatisticas.txt");
+    float hc=0;
+    for(Assinante* assinante:this->assinantes){
+        for(Midia* midia:assinante->favoritos) hc+=midia->get_duracao();
+    }
+    e<<"Horas Consumidas: "<<hc<<" minutos"<<endl;
+    e<<endl;
+    list<tuple<int,string,float>> lista1;
+    tuple<int,string,float> auxiliar = make_tuple(0,"",0);
+    for(Midia::Genero* genero:this->generos){
+        tuple<int,string,float> tupla = make_tuple(0,"",0);
+        get<1>(tupla) = genero->get_nome();
+        for(Midia* midia:this->midias){
+            if(midia->get_genero().get_nome().compare(get<1>(tupla))==0){
+                get<0>(tupla) += 1;
+                get<2>(tupla) += midia->get_duracao();
+            }
+        }
+        if(get<2>(tupla)>=get<2>(auxiliar)) auxiliar = tupla;
+        lista1.push_back(tupla);
+    }
+    e<<"Gênero mais ouvido: "<<get<1>(auxiliar).erase(get<1>(auxiliar).size()-1)<<" - "<<get<2>(auxiliar)<<endl;
+    e<<endl;
+    e<<"Mídias por Gênero:"<<endl;
+    for(tuple<int,string,float> t:lista1){
+        e<<get<1>(t).erase(get<1>(t).size()-1)<<":";
+        e<<get<0>(t)<<endl;
+    }
+    e<<endl;
+    e<<"Top 10 Mídias: "<<endl;
+
+    list<tuple<int,string,string>> lista2;
+    for(Midia* midia:this->midias){
+        tuple<int,string,string> tupla = make_tuple(0,"","");
+        get<1>(tupla) = midia->get_nome();
+        get<2>(tupla) = midia->get_genero().get_nome();
+        for(Assinante* assinante:this->assinantes){
+            for(Midia* favorito:assinante->favoritos){
+                if(favorito->get_nome().compare(get<1>(tupla))==0) get<0>(tupla) += 1;
+            }
+        }
+        lista2.push_back(tupla);
+    }
+    lista2.sort();
+    for(int i=0;i<10;i++){
+        tuple<int,string,string> tupla = lista2.back();
+        e<<get<1>(tupla)<<":"<<get<2>(tupla).erase(get<2>(tupla).size()-1)<<":"<<get<0>(tupla)<<endl;
+        lista2.pop_back();
+    }
+    e<<endl;
+    e<<"Top 10 Produtores:"<<endl;
+    list<tuple<int,string>> lista3;
+    for(Produtor* produtor:this->produtores){
+        int contagem=0;
+        tuple<int,string> tupla = make_tuple(0,"");
+        get<1>(tupla) = produtor->get_nome();
+        for(Assinante* assinante:this->assinantes){
+            for(Midia* favorito:assinante->favoritos){
+                for(Midia* midia:produtor->midias){
+                    if(midia->get_nome()==favorito->get_nome()) contagem++;
+                }
+                get<0>(tupla) = contagem;
+            }
+        }
+        lista3.push_back(tupla);
+    }
+    lista3.sort();
+    for(int i=0;i<10;i++){
+        tuple<int,string> tupla = lista3.back();
+        e<<get<1>(tupla).erase(get<1>(tupla).size()-1)<<":"<<get<0>(tupla)<<endl;
+        lista3.pop_back();
     }
 }
 
@@ -135,18 +218,28 @@ void PlataformaDigital::carregaArquivoMidias(ifstream &midias){
             if(duracao[j]==',') duracao[j] = '.';
         }
 
-        Midia::Genero* gen;
         string sigla;
         istringstream s1(genero);
         getline(s1,sigla,',');
+        Midia::Genero* gen;
+
         for(Midia::Genero* g:this->generos){
             if(g->get_sigla().compare(sigla)==0){
-                gen = new Midia::Genero(g->get_nome(), sigla);
-                Midia* midia = new Midia(nome, stoi(codigo), *gen);
-                midia->set_tipo(tipo);
-                midia->set_duracao(stof(duracao));
-                midia->set_anoLancamento(stoi(anoPublicacao));
-                this->midias.push_back(midia);
+                gen = new Midia::Genero(g->get_nome(),sigla);
+                if(tipo.compare("P")==0 && !temporada.empty()){
+                    Podcast* podcast = new Podcast(nome, * gen, stoi(temporada));
+                    podcast->set_tipo(tipo);
+                    podcast->set_codigo(stoi(codigo));
+                    podcast->set_duracao(stof(duracao));
+                    podcast->set_anoLancamento(stoi(anoPublicacao));
+                    this->midias.push_back(podcast);
+                }
+                if(tipo.compare("M")==0){
+                    Musica* musica = new Musica(nome, *gen, stof(duracao), stoi(anoPublicacao));
+                    musica->set_codigo(stoi(codigo));
+                    musica->set_tipo(tipo);
+                this->midias.push_back(musica);
+                }
             }
         }
         
@@ -183,7 +276,13 @@ void PlataformaDigital::carregaArquivoFavoritos(ifstream &favoritos){
         while(getline(linha, musica, ',')){
             for(int i=0;i<this->midias.size();i++){
                 if(!musica.empty()){
-                    if(this->midias[i]->get_codigo()==stoi(musica)) this->assinantes[stoi(codigo)-1]->favoritos.push_back(this->midias[stoi(musica)-1]);
+                    if(this->midias[i]->get_codigo()==stoi(musica)){
+                        int j=0;
+                        for(Midia* midia:this->assinantes[stoi(codigo)-1]->favoritos){
+                            if(midia->get_codigo() != stoi(musica)) j++;
+                        }
+                        if(j==this->assinantes[stoi(codigo)-1]->favoritos.size()) this->assinantes[stoi(codigo)-1]->favoritos.push_back(this->midias[stoi(musica)-1]);
+                    }
                 }
             }
         }
@@ -198,9 +297,16 @@ void PlataformaDigital::carregaArquivoFavoritos(ifstream &favoritos){
 int PlataformaDigital::partition(int p, int r){
     Produtor* aux;
     string x = this->produtores[r]->get_nome();
+    for(int i=0;i<x.size();i++){
+        if(x[i]>=65 && x[i]<=90) x[i] += 32;
+    }
     int i = p-1;
     for(int j=p;j<r;j++){
-        if(this->produtores[j]->get_nome().compare(x) <= 0){
+        string minusculo=this->produtores[j]->get_nome();
+        for(int i=0;i<minusculo.size();i++){
+            if(minusculo[i]>=65 && minusculo[i]<=90) minusculo[i] += 32;
+        }
+        if(minusculo.compare(x) <= 0){
             i++;
             aux = this->produtores[i];
             this->produtores[i] = this->produtores[j];

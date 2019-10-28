@@ -43,7 +43,7 @@ void Midia::set_genero(Midia::Genero genero){
 }
 void Midia::set_tipo(string tipo){
     if(tipo.compare("P") == 0) this->tipo = "Podcast";
-    if(tipo.compare("M") == 0) this->tipo = "Musica";
+    if(tipo.compare("M") == 0) this->tipo = "Música";
 }
 string Midia::get_nome(){
     return this->nome;

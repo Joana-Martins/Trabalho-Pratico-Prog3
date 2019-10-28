@@ -17,6 +17,8 @@ class Produtor: public Usuario{
         vector<Midia*> get_midias();
         void imprimeProdutosDesenvolvidos();
         virtual void imprimeNoArquivo(ofstream &outfile){}
+        int partition(int p, int r);
+        void quicksort(int p, int r);
 };
 
 #endif

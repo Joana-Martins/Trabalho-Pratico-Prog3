@@ -17,3 +17,28 @@ void Produtor::imprimeProdutosDesenvolvidos(){
         this->midias[i]->imprimeInfoProduto();
     }
 }
+int Produtor::partition(int p, int r){
+    Midia* aux;
+    string x = this->midias[r]->get_nome();
+    int i = p-1;
+    for(int j=p;j<r;j++){
+        if(this->midias[j]->get_nome().compare(x) <= 0){
+            i++;
+            aux = this->midias[i];
+            this->midias[i] = this->midias[j];
+            this->midias[j] = aux;
+        }
+    }
+    aux = this->midias[i+1];
+    this->midias[i+1] = this->midias[r];
+    this->midias[r] = aux;
+    return i+1;
+}
+void Produtor::quicksort(int p, int r){
+    int q;
+    if(p<r){
+        q=this->partition(p,r);
+        this->quicksort(p,q-1);
+        this->quicksort(q+1,r);
+    }
+}

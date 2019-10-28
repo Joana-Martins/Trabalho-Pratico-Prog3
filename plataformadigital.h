@@ -8,8 +8,10 @@
 #include<istream>
 #include<sstream>
 #include<string>
+#include<typeinfo>
 #include <bits/stdc++.h> 
 #include"midia.h"
+#include"podcast.h"
 #include"album.h"
 #include"assinante.h"
 #include"produtor.h"
