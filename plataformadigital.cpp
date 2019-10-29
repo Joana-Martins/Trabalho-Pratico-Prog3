@@ -181,17 +181,20 @@ void PlataformaDigital::gerarRelatorios(){
 
 void PlataformaDigital::carregaArquivoUsuarios(ifstream &usuarios){
     string s, codigo, tipo, nome;
-    getline(usuarios, s, '\n');
+    //try{
+        getline(usuarios, s, '\n');
 
-    while(getline(usuarios,s)){
-        istringstream linha(s);
-        getline(linha, codigo, ';');
-        getline(linha, tipo, ';');
-        getline(linha, nome, ';');
-        if(tipo=="U") this->assinantes.push_back(new Assinante(nome, stoi(codigo)));
-        if(tipo=="P") this->produtores.push_back(new Podcaster(nome, stoi(codigo)));
-        if(tipo=="A") this->produtores.push_back(new Artista(nome, stoi(codigo)));
-    }
+        while(getline(usuarios,s)){
+            istringstream linha(s);
+            getline(linha, codigo, ';');
+            getline(linha, tipo, ';');
+            getline(linha, nome, ';');
+            if(tipo=="U") this->assinantes.push_back(new Assinante(nome, stoi(codigo)));
+            if(tipo=="P") this->produtores.push_back(new Podcaster(nome, stoi(codigo)));
+            if(tipo=="A") this->produtores.push_back(new Artista(nome, stoi(codigo)));
+        }
+    //}
+    //catch()
 }
 
 void PlataformaDigital::carregaArquivoGeneros(ifstream &generos){
@@ -211,16 +214,26 @@ void PlataformaDigital::carregaArquivoMidias(ifstream &midias){
 
     while(getline(midias,s)){
         istringstream linha(s);
-        getline(linha, codigo, ';');
-        getline(linha, nome, ';');
-        getline(linha, tipo, ';');
-        getline(linha, produtores, ';');
-        getline(linha, duracao, ';');
-        getline(linha, genero, ';');
-        getline(linha, temporada, ';');
-        getline(linha, album, ';');
-        getline(linha, codigoAlbum, ';');
-        getline(linha, anoPublicacao, '\n');
+        try{
+            getline(linha, codigo, ';');
+            checa_se_numero(codigo);
+            getline(linha, nome, ';');
+            getline(linha, tipo, ';');
+            getline(linha, produtores, ';');
+            getline(linha, duracao, ';');
+            checa_se_float(duracao);
+            getline(linha, genero, ';');
+            getline(linha, temporada, ';');
+            checa_se_numero(temporada);
+            getline(linha, album, ';');
+            getline(linha, codigoAlbum, ';');
+            checa_se_numero(codigoAlbum);
+            getline(linha, anoPublicacao, '\n');
+            checa_se_numero(anoPublicacao);
+        } catch(const char* msg){
+            cerr<<msg<<endl;
+            exit(1);
+        }
 
         for(int j=0;j<duracao.size();j++){
             if(duracao[j]==',') duracao[j] = '.';

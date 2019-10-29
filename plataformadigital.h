@@ -9,6 +9,7 @@
 #include<sstream>
 #include<string>
 #include<typeinfo>
+#include<stdexcept>
 #include <bits/stdc++.h> 
 #include"midia.h"
 #include"podcast.h"
@@ -17,6 +18,7 @@
 #include"produtor.h"
 #include"podcaster.h"
 #include"artista.h"
+#include"excecoes.h"
 
 using namespace std;
 
