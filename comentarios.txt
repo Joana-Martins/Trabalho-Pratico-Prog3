@@ -1,0 +1,4 @@
+Album.h e Album.cpp -> tá ok, falta a função de Imprimir arquivos.
+Artista.h e Artista.cpp -> tá ok, revisar comentário no arquivo de saída com a Juliane.
+Podcaster.h e Podcaster.cpp -> tá ok.
+
