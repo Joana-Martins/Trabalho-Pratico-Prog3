@@ -181,20 +181,25 @@ void PlataformaDigital::gerarRelatorios(){
 
 void PlataformaDigital::carregaArquivoUsuarios(ifstream &usuarios){
     string s, codigo, tipo, nome;
-    //try{
+    try{
         getline(usuarios, s, '\n');
 
         while(getline(usuarios,s)){
             istringstream linha(s);
             getline(linha, codigo, ';');
+            checa_se_numero(codigo);
             getline(linha, tipo, ';');
+            checa_se_existe_usuario(tipo);
             getline(linha, nome, ';');
             if(tipo=="U") this->assinantes.push_back(new Assinante(nome, stoi(codigo)));
             if(tipo=="P") this->produtores.push_back(new Podcaster(nome, stoi(codigo)));
             if(tipo=="A") this->produtores.push_back(new Artista(nome, stoi(codigo)));
         }
-    //}
-    //catch()
+    }
+    catch(const char* msg){
+        cerr<<msg<<endl;
+        exit(1);
+    }
 }
 
 void PlataformaDigital::carregaArquivoGeneros(ifstream &generos){
@@ -219,8 +224,12 @@ void PlataformaDigital::carregaArquivoMidias(ifstream &midias){
             checa_se_numero(codigo);
             getline(linha, nome, ';');
             getline(linha, tipo, ';');
+            checa_se_existe(tipo);
             getline(linha, produtores, ';');
             getline(linha, duracao, ';');
+            for(int i=0;i<duracao.size();i++){
+                if(duracao[i]==',') duracao[i]='.';
+            }
             checa_se_float(duracao);
             getline(linha, genero, ';');
             getline(linha, temporada, ';');
@@ -230,60 +239,56 @@ void PlataformaDigital::carregaArquivoMidias(ifstream &midias){
             checa_se_numero(codigoAlbum);
             getline(linha, anoPublicacao, '\n');
             checa_se_numero(anoPublicacao);
+
+            string sigla;
+            istringstream s1(genero);
+            getline(s1,sigla,',');
+            checa_se_existe(sigla,this->generos);
+
+            for(Midia::Genero* g:this->generos){
+                if(g->get_sigla().compare(sigla)==0){
+                    if(tipo.compare("P")==0){
+                        Podcast* podcast = new Podcast(nome, *g, stoi(temporada));
+                        podcast->set_tipo(tipo);
+                        podcast->set_codigo(stoi(codigo));
+                        podcast->set_duracao(stof(duracao));
+                        podcast->set_anoLancamento(stoi(anoPublicacao));
+                        this->midias.push_back(podcast);
+                    }
+                    if(tipo.compare("M")==0){
+                        Musica* musica = new Musica(nome, *g, stof(duracao), stoi(anoPublicacao));
+                        musica->set_codigo(stoi(codigo));
+                        musica->set_tipo(tipo);
+                        this->midias.push_back(musica);
+                        if(!codigoAlbum.empty()){
+                            int i=0;
+                            for(Album* alb:this->albuns){
+                                if(alb->get_nome().compare(codigoAlbum)!=0) i++;
+                            }
+                            if(i==this->albuns.size()) this->albuns.push_back(new Album(codigoAlbum, stoi(duracao), stoi(anoPublicacao),0));
+                        }
+                        for(Album* alb:this->albuns){
+                            if(alb->get_nome().compare(codigoAlbum)==0) alb->musicas.push_back(musica);
+                        }
+                    }
+                }
+            }
+        
+            string p2;
+            istringstream s2(produtores);
+            while(getline(s2,p2,',')){
+                if(p2[0] == ' ') p2.erase(p2.begin());
+                checa_se_numero(p2);
+                checa_se_existe(stoi(p2), this->produtores);
+                for(int i=0;i<this->produtores.size();i++){
+                    if(!p2.empty()){
+                        if(this->produtores[i]->get_codigo() == stoi(p2)) this->produtores[i]->midias.push_back(this->midias[stoi(codigo)-1]);
+                    }
+                }
+            }
         } catch(const char* msg){
             cerr<<msg<<endl;
             exit(1);
-        }
-
-        for(int j=0;j<duracao.size();j++){
-            if(duracao[j]==',') duracao[j] = '.';
-        }
-
-        string sigla;
-        istringstream s1(genero);
-        getline(s1,sigla,',');
-
-        for(Midia::Genero* g:this->generos){
-            if(g->get_sigla().compare(sigla)==0){
-                if(tipo.compare("P")==0){
-                    Podcast* podcast = new Podcast(nome, *g, stoi(temporada));
-                    podcast->set_tipo(tipo);
-                    podcast->set_codigo(stoi(codigo));
-                    podcast->set_duracao(stof(duracao));
-                    podcast->set_anoLancamento(stoi(anoPublicacao));
-                    this->midias.push_back(podcast);
-                }
-                if(tipo.compare("M")==0){
-                    Musica* musica = new Musica(nome, *g, stof(duracao), stoi(anoPublicacao));
-                    musica->set_codigo(stoi(codigo));
-                    musica->set_tipo(tipo);
-                    this->midias.push_back(musica);
-                    if(!codigoAlbum.empty()){
-                        int i=0;
-                        for(Album* alb:this->albuns){
-                            if(alb->get_nome().compare(codigoAlbum)!=0) i++;
-                        }
-                        if(i==this->albuns.size()) this->albuns.push_back(new Album(codigoAlbum, stoi(duracao), stoi(anoPublicacao),0));
-                    }
-                    for(Album* alb:this->albuns){
-                        if(alb->get_nome().compare(codigoAlbum)==0) alb->musicas.push_back(musica);
-                    }
-                }
-            }
-        }
-        
-        string p2;
-        istringstream s2(produtores);
-        while(getline(s2,p2,',')){
-            if (p2[0] == ' ')
-            {
-                p2.erase(p2.begin());
-            }
-            for(int i=0;i<this->produtores.size();i++){
-                if(!p2.empty()){
-                    if(this->produtores[i]->get_codigo() == stoi(p2)) this->produtores[i]->midias.push_back(this->midias[stoi(codigo)-1]);
-                }
-            }
         }
     }
 }
@@ -291,23 +296,31 @@ void PlataformaDigital::carregaArquivoMidias(ifstream &midias){
 void PlataformaDigital::carregaArquivoFavoritos(ifstream &favoritos){
     string s, codigo, musica;
     getline(favoritos, s, '\n');
-
-    while(getline(favoritos,s)){
-        istringstream linha(s);
-        getline(linha, codigo, ';');
-        while(getline(linha, musica, ',')){
-            for(int i=0;i<this->midias.size();i++){
-                if(!musica.empty()){
-                    if(this->midias[i]->get_codigo()==stoi(musica)){
-                        int j=0;
-                        for(Midia* midia:this->assinantes[stoi(codigo)-1]->favoritos){
-                            if(midia->get_codigo() != stoi(musica)) j++;
+    try{
+        while(getline(favoritos,s)){
+            istringstream linha(s);
+            getline(linha, codigo, ';');
+            checa_se_numero(codigo);
+            checa_se_existe(stoi(codigo), this->assinantes);
+            while(getline(linha, musica, ',')){
+                for(int i=0;i<this->midias.size();i++){
+                    if(!musica.empty()){
+                        checa_se_numero(musica);
+                        checa_se_existe(stoi(musica), this->midias);
+                        if(this->midias[i]->get_codigo()==stoi(musica)){
+                            int j=0;
+                            for(Midia* midia:this->assinantes[stoi(codigo)-1]->favoritos){
+                                if(midia->get_codigo() != stoi(musica)) j++;
+                            }
+                            if(j==this->assinantes[stoi(codigo)-1]->favoritos.size()) this->assinantes[stoi(codigo)-1]->favoritos.push_back(this->midias[stoi(musica)-1]);
                         }
-                        if(j==this->assinantes[stoi(codigo)-1]->favoritos.size()) this->assinantes[stoi(codigo)-1]->favoritos.push_back(this->midias[stoi(musica)-1]);
                     }
                 }
             }
         }
+    } catch(const char* msg){
+        cerr<<msg<<endl;
+        exit(1);
     }
 
     for(Assinante* assinante:this->assinantes){
