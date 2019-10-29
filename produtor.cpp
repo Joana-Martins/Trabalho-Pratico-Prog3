@@ -1,14 +1,11 @@
 #include "produtor.h"
 
-//construtores 
 Produtor::Produtor(){}
 Produtor::Produtor(string nome, int codigo){
     this->set_nome(nome);
     this->set_codigo(codigo);
 }
-Produtor::~Produtor(){} //destrutor 
-
-//set e get de midias 
+Produtor::~Produtor(){}
 void Produtor::set_midias(Midia* midia){
     this->midias.push_back(midia);
 }
@@ -20,15 +17,12 @@ void Produtor::imprimeProdutosDesenvolvidos(){
         this->midias[i]->imprimeInfoProduto();
     }
 }
-
-//algoritmos de ordenação 
-
-int Produtor::partition(int p, int r){ //ordena as midias pelo nome 
+int Produtor::partition(int p, int r){
     Midia* aux;
     string x = this->midias[r]->get_nome();
     int i = p-1;
     for(int j=p;j<r;j++){
-        if(this->midias[j]->get_nome().compare(x) <= 0){ 
+        if(this->midias[j]->get_nome().compare(x) <= 0){
             i++;
             aux = this->midias[i];
             this->midias[i] = this->midias[j];
@@ -40,8 +34,7 @@ int Produtor::partition(int p, int r){ //ordena as midias pelo nome
     this->midias[r] = aux;
     return i+1;
 }
-
-void Produtor::quicksort(int p, int r){ //junto com a função acima, ordena as mídias de maneira recursiva 
+void Produtor::quicksort(int p, int r){
     int q;
     if(p<r){
         q=this->partition(p,r);

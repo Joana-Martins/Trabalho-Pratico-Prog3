@@ -6,10 +6,9 @@
 
 using namespace std;
 
-class Musica: public Midia{ // música tem atributos herdados de Midia
+class Musica: public Midia{
     public:
-        //métodos da classe, construtor, destrutor, e métodos de impressão de informações 
-        Musica(); 
+        Musica();
         Musica(string nome, Genero gen, float duracao, int ano);
         ~Musica();
         void imprimeInfoProduto();

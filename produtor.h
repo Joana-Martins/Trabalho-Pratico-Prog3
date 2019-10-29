@@ -7,10 +7,9 @@
 
 using namespace std;
 
-class Produtor: public Usuario{ //o produtor herda atributos de usuario 
-    public: 
-        vector<Midia*> midias; //um produtor possui várias mídias 
-        //métodos da classe, construtores, destrutor, get e sets, impressão em arquivo e no terminal e funções de ordenação
+class Produtor: public Usuario{
+    public:
+        vector<Midia*> midias;
         Produtor();
         Produtor(string nome, int codigo);
         ~Produtor();

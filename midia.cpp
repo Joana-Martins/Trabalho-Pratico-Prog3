@@ -1,14 +1,11 @@
 #include "midia.h"
 
-//construtores de generos  
 Midia::Genero::Genero(){}
 Midia::Genero::Genero(string nome, string sigla){
     this->set_nome(nome);
     this->set_sigla(sigla);
 }
-Midia::Genero::~Genero(){} //destrutor de generos  
-
-//sets e gets de generos 
+Midia::Genero::~Genero(){}
 void Midia::Genero::set_nome(string nome){
     this->nome = nome;
 }
@@ -21,17 +18,14 @@ string Midia::Genero::get_nome(){
 string Midia::Genero::get_sigla(){
     return this->sigla;
 }
-//construtores de midia 
 Midia::Midia(){}
 Midia::Midia(string nome, int codigo, Genero genero){
     this->set_nome(nome);
     this->set_codigo(codigo);
-    this->set_genero(genero);
+    this -> genero = genero;
     qtdProdutos++;
 }
-Midia::~Midia(){} //destrutor de midia 
-
-//sets e gets de midia 
+Midia::~Midia(){}
 void Midia::set_nome(string nome){
     this->nome = nome;
 }
@@ -44,7 +38,7 @@ void Midia::set_duracao(float duracao){
 void Midia::set_anoLancamento(int anoLancamento){
     this->anoLancamento = anoLancamento;
 }
-void Midia::set_genero(Midia::Genero genero){
+void Midia::set_genero(Genero genero){
     this->genero = genero;
 }
 void Midia::set_tipo(string tipo){
@@ -69,10 +63,7 @@ Midia::Genero Midia::get_genero(){
 string Midia::get_tipo(){
     return this->tipo;
 }
-
-int Midia::qtdProdutos = 0; //dando inicio a um atributo do tipo static 
-
-//imprime a quantidade 
+int Midia::qtdProdutos = 0;
 void Midia::imprimeQtdProdutos(){
-    cout<<"Quantidade de produtos: "<<qtdProdutos<<endl; //
+    cout<<"Quantidade de produtos: "<<qtdProdutos<<endl;
 }

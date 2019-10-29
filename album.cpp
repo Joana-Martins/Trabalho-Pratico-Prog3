@@ -1,6 +1,5 @@
 #include"album.h"
 
-//implementação das função do .h, sets, gets, contrutor e destrutor.
 Album::Album(){}
 Album::Album(string nome, int duracao, int ano, int qtd){
     this->set_nome(nome);

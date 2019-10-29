@@ -65,9 +65,6 @@ int main(int argc, char* argv[]){
     pd->carregaArquivoMidias(midias);
     pd->carregaArquivoFavoritos(favoritos);
     pd->gerarRelatorios();
-    for(int i=0;i<pd->assinantes.size();i++) delete pd->assinantes[i];
-    for(int i=0;i<pd->midias.size();i++) delete pd->midias[i];
-    for(int i=0;i<pd->produtores.size();i++) delete pd->produtores[i];
-    for(int i=0;i<pd->generos.size();i++) delete pd->generos[i];
+    delete pd;
     return 0;
 }

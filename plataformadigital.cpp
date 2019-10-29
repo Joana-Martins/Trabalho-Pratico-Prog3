@@ -1,22 +1,27 @@
 #include"plataformadigital.h"
 
-//contrutores 
 PlataformaDigital::PlataformaDigital(){}
 PlataformaDigital::PlataformaDigital(string nome){
     this->set_nome(nome);
 }
-PlataformaDigital::~PlataformaDigital(){ //destrutor 
-    delete[] this->generos[0];
+PlataformaDigital::~PlataformaDigital(){
+    for(Midia::Genero* genero:this->generos) delete genero;
+    for(Assinante* assinante:this->assinantes) delete assinante;
+    for(Produtor* produtor:this->produtores) delete produtor;
+    for(Midia* midia:this->midias)
+    {   
+        Podcast* pod = (Podcast*) midia;
+        delete pod;
+    }
+    for(Album* album:this->albuns) delete album;
 }
-//gets e sets 
 void PlataformaDigital::set_nome(string nome){
     this->nome = nome;
 }        
 string PlataformaDigital::get_nome(){
     return this->nome;
 }
-
-void PlataformaDigital::imprimeProdutos(string genero){ //imprime as informações no terminal 
+void PlataformaDigital::imprimeProdutos(string genero){
     for(int i=0;i<this->generos.size();i++){
         if(this->generos[i]->get_nome().compare(genero) == 0){
             cout<<"Nome: "<<this->generos[i]->get_nome()<<endl;
@@ -38,13 +43,12 @@ void PlataformaDigital::gerarRelatorios(){
     u<<"Usuários:"<<endl;
     for(Assinante* assinante:this->assinantes){
         u<<assinante->get_codigo()<<";";
-        u<<assinante->get_nome();
+        u<<assinante->get_nome()<<endl;
     }
     for(Produtor* produtor:this->produtores){
         u<<produtor->get_codigo()<<";";
-        u<<produtor->get_nome();
+        u<<produtor->get_nome()<<endl;
     }
-    u<<endl;
     u<<endl;
     u<<"Midias:"<<endl;
     for(Midia* midia:this->midias){
@@ -53,13 +57,13 @@ void PlataformaDigital::gerarRelatorios(){
         for(Produtor* produtor:this->produtores){
             for(Midia* aux:produtor->midias){
                 if(aux->get_codigo()==midia->get_codigo()){
-                    u<<produtor->get_nome().erase(produtor->get_nome().size()-1)<<",";
+                    u<<produtor->get_nome().erase(produtor->get_nome().size())<<",";
                 }
             }
         }
         u<<";";
         u<<midia->get_duracao()<<";";
-        u<<midia->get_genero().get_nome().erase(midia->get_genero().get_nome().size() - 1)<<";";
+        u<<midia->get_genero().get_nome().erase(midia->get_genero().get_nome().size())<<";";
         if(midia->get_tipo().compare("Podcast")==0){
             Podcast* p=(Podcast*)midia;
             u<<p->get_qtdTemporadas()<<";";
@@ -79,7 +83,7 @@ void PlataformaDigital::gerarRelatorios(){
     mpp.open("produtores.csv");
     for(Produtor* produtor : this->produtores){
         produtor->quicksort(0,produtor->midias.size()-1);
-        mpp<<produtor->get_nome().erase(produtor -> get_nome().size() - 1)<<";";
+        mpp<<produtor->get_nome().erase(produtor -> get_nome().size())<<";";
         for(Midia* midia : produtor->midias){
             mpp<<midia->get_nome()<<";";
         }
@@ -94,7 +98,7 @@ void PlataformaDigital::gerarRelatorios(){
             f<<assinante->get_codigo()<<";";
             f<<midia->get_tipo()<<";";
             f<<midia->get_codigo()<<";";
-            f<<midia->get_genero().get_nome().erase(midia->get_genero().get_nome().size() - 1)<<";";
+            f<<midia->get_genero().get_nome().erase(midia->get_genero().get_nome().size())<<";";
             f<<midia->get_duracao();
             f<<endl;
         }
@@ -122,11 +126,11 @@ void PlataformaDigital::gerarRelatorios(){
         if(get<2>(tupla)>=get<2>(auxiliar)) auxiliar = tupla;
         lista1.push_back(tupla);
     }
-    e<<"Gênero mais ouvido: "<<get<1>(auxiliar).erase(get<1>(auxiliar).size()-1)<<" - "<<get<2>(auxiliar)<<endl;
+    e<<"Gênero mais ouvido: "<<get<1>(auxiliar).erase(get<1>(auxiliar).size())<<" - "<<get<2>(auxiliar)<<endl;
     e<<endl;
     e<<"Mídias por Gênero:"<<endl;
     for(tuple<int,string,float> t:lista1){
-        e<<get<1>(t).erase(get<1>(t).size()-1)<<":";
+        e<<get<1>(t).erase(get<1>(t).size())<<":";
         e<<get<0>(t)<<endl;
     }
     e<<endl;
@@ -147,7 +151,7 @@ void PlataformaDigital::gerarRelatorios(){
     lista2.sort();
     for(int i=0;i<10;i++){
         tuple<int,string,string> tupla = lista2.back();
-        e<<get<1>(tupla)<<":"<<get<2>(tupla).erase(get<2>(tupla).size()-1)<<":"<<get<0>(tupla)<<endl;
+        e<<get<1>(tupla)<<":"<<get<2>(tupla).erase(get<2>(tupla).size())<<":"<<get<0>(tupla)<<endl;
         lista2.pop_back();
     }
     e<<endl;
@@ -170,28 +174,24 @@ void PlataformaDigital::gerarRelatorios(){
     lista3.sort();
     for(int i=0;i<10;i++){
         tuple<int,string> tupla = lista3.back();
-        e<<get<1>(tupla).erase(get<1>(tupla).size()-1)<<":"<<get<0>(tupla)<<endl;
+        e<<get<1>(tupla).erase(get<1>(tupla).size())<<":"<<get<0>(tupla)<<endl;
         lista3.pop_back();
     }
 }
 
-//TERMINA AQ 
-
 void PlataformaDigital::carregaArquivoUsuarios(ifstream &usuarios){
     string s, codigo, tipo, nome;
     getline(usuarios, s, '\n');
-try{
+
     while(getline(usuarios,s)){
         istringstream linha(s);
         getline(linha, codigo, ';');
         getline(linha, tipo, ';');
         getline(linha, nome, ';');
         if(tipo=="U") this->assinantes.push_back(new Assinante(nome, stoi(codigo)));
-        else this->produtores.push_back(new Produtor(nome, stoi(codigo)));
-        }
+        if(tipo=="P") this->produtores.push_back(new Podcaster(nome, stoi(codigo)));
+        if(tipo=="A") this->produtores.push_back(new Artista(nome, stoi(codigo)));
     }
-
-    catch(string param){cout <<  "string exception";}
 }
 
 void PlataformaDigital::carregaArquivoGeneros(ifstream &generos){
@@ -220,7 +220,7 @@ void PlataformaDigital::carregaArquivoMidias(ifstream &midias){
         getline(linha, temporada, ';');
         getline(linha, album, ';');
         getline(linha, codigoAlbum, ';');
-        getline(linha, anoPublicacao, ';');
+        getline(linha, anoPublicacao, '\n');
 
         for(int j=0;j<duracao.size();j++){
             if(duracao[j]==',') duracao[j] = '.';
@@ -229,13 +229,11 @@ void PlataformaDigital::carregaArquivoMidias(ifstream &midias){
         string sigla;
         istringstream s1(genero);
         getline(s1,sigla,',');
-        Midia::Genero* gen;
 
         for(Midia::Genero* g:this->generos){
             if(g->get_sigla().compare(sigla)==0){
-                gen = new Midia::Genero(g->get_nome(),sigla);
-                if(tipo.compare("P")==0 && !temporada.empty()){
-                    Podcast* podcast = new Podcast(nome, * gen, stoi(temporada));
+                if(tipo.compare("P")==0){
+                    Podcast* podcast = new Podcast(nome, *g, stoi(temporada));
                     podcast->set_tipo(tipo);
                     podcast->set_codigo(stoi(codigo));
                     podcast->set_duracao(stof(duracao));
@@ -243,10 +241,20 @@ void PlataformaDigital::carregaArquivoMidias(ifstream &midias){
                     this->midias.push_back(podcast);
                 }
                 if(tipo.compare("M")==0){
-                    Musica* musica = new Musica(nome, *gen, stof(duracao), stoi(anoPublicacao));
+                    Musica* musica = new Musica(nome, *g, stof(duracao), stoi(anoPublicacao));
                     musica->set_codigo(stoi(codigo));
                     musica->set_tipo(tipo);
-                this->midias.push_back(musica);
+                    this->midias.push_back(musica);
+                    if(!codigoAlbum.empty()){
+                        int i=0;
+                        for(Album* alb:this->albuns){
+                            if(alb->get_nome().compare(codigoAlbum)!=0) i++;
+                        }
+                        if(i==this->albuns.size()) this->albuns.push_back(new Album(codigoAlbum, stoi(duracao), stoi(anoPublicacao),0));
+                    }
+                    for(Album* alb:this->albuns){
+                        if(alb->get_nome().compare(codigoAlbum)==0) alb->musicas.push_back(musica);
+                    }
                 }
             }
         }
@@ -254,22 +262,15 @@ void PlataformaDigital::carregaArquivoMidias(ifstream &midias){
         string p2;
         istringstream s2(produtores);
         while(getline(s2,p2,',')){
+            if (p2[0] == ' ')
+            {
+                p2.erase(p2.begin());
+            }
             for(int i=0;i<this->produtores.size();i++){
                 if(!p2.empty()){
                     if(this->produtores[i]->get_codigo() == stoi(p2)) this->produtores[i]->midias.push_back(this->midias[stoi(codigo)-1]);
                 }
             }
-        }
-
-        if(!codigoAlbum.empty()){
-            int i=0;
-            for(Album* alb:this->albuns){
-                if(alb->get_nome().compare(codigoAlbum)!=0) i++;
-            }
-            if(i==this->albuns.size()) this->albuns.push_back(new Album(codigoAlbum, stoi(duracao), stoi(anoPublicacao),0));
-        }
-        for(Album* alb:this->albuns){
-            if(alb->get_nome().compare(codigoAlbum)==0) alb->musicas.push_back(new Musica(nome, *gen, stof(duracao), stoi(anoPublicacao)));
         }
     }
 }

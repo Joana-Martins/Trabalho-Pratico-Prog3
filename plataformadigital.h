@@ -15,14 +15,15 @@
 #include"album.h"
 #include"assinante.h"
 #include"produtor.h"
+#include"podcaster.h"
+#include"artista.h"
 
 using namespace std;
 
 class Midia;
 class Assinante;
-class PlataformaDigital{ //implementação da classe Plataforma Digital, a qual inclui as outras classes para integrá-las 
+class PlataformaDigital{
     private:
-    //atributos de PlataformaDigital 
         string nome;
     public:
         vector<Assinante*> assinantes;
@@ -30,14 +31,11 @@ class PlataformaDigital{ //implementação da classe Plataforma Digital, a qual 
         vector<Midia*> midias;
         vector<Produtor*> produtores;
         vector<Album*> albuns;
-        //gets e sets 
         void set_nome(string nome);
         string get_nome();
-        //construtores e destrutor 
         PlataformaDigital();
         PlataformaDigital(string nome);
         ~PlataformaDigital();
-        //métodos de impressão, ler arquivos, inserir e retirar, e ordenação 
         void imprimeProdutos(string genero);
         void imprimeAssinantes();
         void inserirAssinante(Assinante* assinante);

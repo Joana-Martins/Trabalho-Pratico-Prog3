@@ -1,34 +1,25 @@
 #include"assinante.h"
 
-//construtores 
 Assinante::Assinante(){}
 Assinante::Assinante(string nome, int codigo){
     this->nome = nome;
     this->codigo = codigo;
 }
-Assinante::~Assinante(){}//destrutor
-
-//set e get
+Assinante::~Assinante(){}
 void Assinante::set_favoritos(Midia* favorito){
     this->favoritos.push_back(favorito);
 }
 vector<Midia*> Assinante::get_favoritos(){
     return this->favoritos;
 }
-
-//imprime quais são as midias dentro do vetor favoritos 
 void Assinante::imprimeFavoritos(){
     for(int i=0;i<this->favoritos.size();i++){
         this->favoritos[i]->imprimeInfoProduto();
     }
 }
-
-//insere mídias no vetor 
 void Assinante::inserirFavorito(Midia* favorito){
     this->favoritos.push_back(favorito);
 }
-
-//retira uma mídia do vetor de favoritos
 void Assinante::removerFavorito(Midia* favorito){
     int posicao = -1;
     for(int i=0;i<this->get_favoritos().size();i++){
@@ -38,9 +29,7 @@ void Assinante::removerFavorito(Midia* favorito){
         this->favoritos.erase(this->favoritos.begin() + posicao - 1);
     }
 }
-
-//métodos de ordenação 
-int Assinante::partition(int p, int r){ //ordena midias pelo tipo 
+int Assinante::partition(int p, int r){
     Midia* aux;
     string x = this->favoritos[r]->get_tipo();
     int i = p-1;
@@ -58,7 +47,7 @@ int Assinante::partition(int p, int r){ //ordena midias pelo tipo
 
     return i+1;
 }
-void Assinante::quicksort(int p, int r){ //com ajuda do método acima termina de ordenar
+void Assinante::quicksort(int p, int r){
     int q;
     if(p<r){
         q=partition(p,r);
@@ -66,7 +55,7 @@ void Assinante::quicksort(int p, int r){ //com ajuda do método acima termina de
         quicksort(q+1,r);
     }
 }
-int Assinante::partition_(int p, int r){ //ordena midias pelo codigo 
+int Assinante::partition_(int p, int r){
     Midia* aux;
     int x = this->favoritos[r]->get_codigo();
     int i = p-1;
@@ -84,7 +73,7 @@ int Assinante::partition_(int p, int r){ //ordena midias pelo codigo
 
     return i+1;
 }
-void Assinante::quicksort_(int p, int r){ //termina de ordenar 
+void Assinante::quicksort_(int p, int r){
     int q;
     if(p<r){
         q=partition_(p,r);
@@ -92,9 +81,7 @@ void Assinante::quicksort_(int p, int r){ //termina de ordenar
         quicksort_(q+1,r);
     }
 }
-
-//método para contar quantos podcasts têm 
-int Assinante::conta_podcasts(){ 
+int Assinante::conta_podcasts(){
     int n_podcasts = 0;
     for(Midia* midia:this->favoritos){
         if(midia->get_tipo().compare("Podcast") == 0) n_podcasts++;
