@@ -59,7 +59,7 @@ int main(int argc, char* argv[]){
         }
     }
 
-    PlataformaDigital* pd = new PlataformaDigital("nome plataforma");
+    PlataformaDigital* pd = new PlataformaDigital("Spotify++");
     pd->carregaArquivoGeneros(generos);
     pd->carregaArquivoUsuarios(usuarios);
     pd->carregaArquivoMidias(midias);

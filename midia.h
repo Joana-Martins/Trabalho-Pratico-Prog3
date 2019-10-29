@@ -6,19 +6,22 @@
 
 using namespace std;
 
-class Midia{
+class Midia{ //midias, classe base para musicas e podcasts
     protected:
+    //atributos de midia que podem ser acessados por classes derivadas
         string nome;
         int codigo;
         float duracao;
         int anoLancamento;
         string tipo;
     public:
-        class Genero{
+        class Genero{ //classe interna de mídias 
             private:
+                //atributos de genero 
                 string nome;
                 string sigla;
             public:
+            //metodos de genero 
                 Genero();
                 Genero(string nome, string sigla);
                 ~Genero();
@@ -27,8 +30,9 @@ class Midia{
                 string get_nome();
                 string get_sigla();
         };
-        Genero genero;
+        Genero genero; //sendo assim, a midia possui um genero definido acima 
         static int qtdProdutos;
+        //métodos de midia, construtores, destrutor, imprimir informações, sets e gets;
         static void imprimeQtdProdutos();
         Midia();
         Midia(string nome, int codigo, Genero genero);

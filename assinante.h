@@ -9,9 +9,12 @@
 using namespace std;
 
 class Midia;
-class Assinante: public Usuario{
+class Assinante: public Usuario{ //o assinante herda características ds classe usuario 
     public:
-        vector<Midia*> favoritos;
+        vector<Midia*> favoritos; //um usuario tem um vetor de mais de uma midia favorita 
+        
+        //métodos da classe, construtores, destrutor, get e set, imprimir informações em arquivo ou no terminal, funções
+        // de inserir e remover dos favoritos do assinante, e métodos de ordenação  
         Assinante();
         Assinante(string nome, int codigo);
         ~Assinante();

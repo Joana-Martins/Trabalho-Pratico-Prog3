@@ -1,4 +1,9 @@
 Album.h e Album.cpp -> tá ok, falta a função de Imprimir arquivos.
 Artista.h e Artista.cpp -> tá ok, revisar comentário no arquivo de saída com a Juliane.
 Podcaster.h e Podcaster.cpp -> tá ok.
-
+musica.cpp e musica.h -> tá ok.
+podcast.cpp e podcast.h -> tá ok.
+produtor.cpp e produtor.h -> tá ok.
+assinante.cpp e assinante.h -> tá ok.
+usuario.cpp e usuario.h -> tá ok, falta o imprimir em arquivos
+midia.cpp e midia.h -> tá ok. 

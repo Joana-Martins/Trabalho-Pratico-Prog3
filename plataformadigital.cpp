@@ -1,19 +1,22 @@
 #include"plataformadigital.h"
 
+//contrutores 
 PlataformaDigital::PlataformaDigital(){}
 PlataformaDigital::PlataformaDigital(string nome){
     this->set_nome(nome);
 }
-PlataformaDigital::~PlataformaDigital(){
+PlataformaDigital::~PlataformaDigital(){ //destrutor 
     delete[] this->generos[0];
 }
+//gets e sets 
 void PlataformaDigital::set_nome(string nome){
     this->nome = nome;
 }        
 string PlataformaDigital::get_nome(){
     return this->nome;
 }
-void PlataformaDigital::imprimeProdutos(string genero){
+
+void PlataformaDigital::imprimeProdutos(string genero){ //imprime as informações no terminal 
     for(int i=0;i<this->generos.size();i++){
         if(this->generos[i]->get_nome().compare(genero) == 0){
             cout<<"Nome: "<<this->generos[i]->get_nome()<<endl;
@@ -172,10 +175,12 @@ void PlataformaDigital::gerarRelatorios(){
     }
 }
 
+//TERMINA AQ 
+
 void PlataformaDigital::carregaArquivoUsuarios(ifstream &usuarios){
     string s, codigo, tipo, nome;
     getline(usuarios, s, '\n');
-
+try{
     while(getline(usuarios,s)){
         istringstream linha(s);
         getline(linha, codigo, ';');
@@ -183,7 +188,10 @@ void PlataformaDigital::carregaArquivoUsuarios(ifstream &usuarios){
         getline(linha, nome, ';');
         if(tipo=="U") this->assinantes.push_back(new Assinante(nome, stoi(codigo)));
         else this->produtores.push_back(new Produtor(nome, stoi(codigo)));
+        }
     }
+
+    catch(string param){cout <<  "string exception";}
 }
 
 void PlataformaDigital::carregaArquivoGeneros(ifstream &generos){
