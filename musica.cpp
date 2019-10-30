@@ -7,7 +7,7 @@ Musica::Musica(string nome, Genero gen, float duracao, int ano): Midia(nome,codi
     this->set_anoLancamento(ano);
 }
 Musica::~Musica(){}
-void Musica::imprimeInfoProduto(){
+void Musica::imprimeInfoProduto(){//apenas coloca seus atributos como saída para o terminal
     cout<<"Nome: "<<this->get_nome()<<endl;
     //cout<<"Codigo: "<<this->get_codigo()<<endl;
     cout<<"Duracao: "<<this->get_duracao()<<endl;
@@ -15,7 +15,7 @@ void Musica::imprimeInfoProduto(){
     //cout<<"Genero: "<<this->get_genero().get_nome()<<endl;
     //cout<<"Sigla: "<<this->get_genero().get_sigla()<<endl;
 }
-void Musica::imprimeNoArquivo(ofstream &outfile){
+void Musica::imprimeNoArquivo(ofstream &outfile){//coloca seus atributos como saída no arquivo
     outfile<<"Nome: "<<this->get_nome()<<endl;
     //outfile<<"Codigo: "<<this->get_codigo()<<endl;
     outfile<<"Duracao: "<<this->get_duracao()<<endl;

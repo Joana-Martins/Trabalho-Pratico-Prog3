@@ -24,20 +24,27 @@ using namespace std;
 
 class Midia;
 class Assinante;
-class PlataformaDigital{
+class PlataformaDigital{ // PlataformaDigital que possui as informações 
     private:
         string nome;
     public:
+        //vetores das outras classes 
         vector<Assinante*> assinantes;
         vector<Midia::Genero*> generos;
         vector<Midia*> midias;
         vector<Produtor*> produtores;
         vector<Album*> albuns;
+
+        //sets e gets 
         void set_nome(string nome);
         string get_nome();
+
+        //construtores
         PlataformaDigital();
         PlataformaDigital(string nome);
-        ~PlataformaDigital();
+        ~PlataformaDigital(); //destrutor 
+
+        //imprimir informações, inserir informações, ler arquivos e gerar relatorios
         void imprimeProdutos(string genero);
         void imprimeAssinantes();
         void inserirAssinante(Assinante* assinante);

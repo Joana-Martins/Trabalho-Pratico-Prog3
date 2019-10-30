@@ -17,7 +17,7 @@ int main(int argc, char* argv[]){
     char parametros[4];
     for(int i=0;i<4;i++){
         parametros[i] = argv[2*i+1][1];
-        switch(parametros[i]){
+        switch(parametros[i]){ //abre os arquivos corretamente, vendo qual arquivo é qual
             case 'g': generos.open(argv[2*i+2],ios::in); break;   
             case 'u': usuarios.open(argv[2*i+2],ios::in); break;
             case 'm': midias.open(argv[2*i+2],ios::in); break;
@@ -31,11 +31,12 @@ int main(int argc, char* argv[]){
     }
 
     PlataformaDigital* pd = new PlataformaDigital("Spotify++");
-    pd->carregaArquivoGeneros(generos);
-    pd->carregaArquivoUsuarios(usuarios);
-    pd->carregaArquivoMidias(midias);
-    pd->carregaArquivoFavoritos(favoritos);
-    pd->gerarRelatorios();
+    //lê todos os arquivos de entrada
+    pd->carregaArquivoGeneros(generos); //carrega generos
+    pd->carregaArquivoUsuarios(usuarios);// carrega usuarios
+    pd->carregaArquivoMidias(midias); //carrega midias
+    pd->carregaArquivoFavoritos(favoritos); //carrega favoritos
+    pd->gerarRelatorios(); //gera as saídas
     delete pd;
     return 0;
 }

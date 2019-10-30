@@ -7,17 +7,20 @@
 
 using namespace std;
 
-class Album{
+class Album{  //começo da classe album
     private:
+        //atributos de album 
         string nome;
         int duracao;
         int anoLancamento;
         int qtdMusicas;
     public:
-        vector<Musica*> musicas;
+        vector<Musica*> musicas; //um álbum pode possuir diversas músicas 
         Album();
-        Album(string nome, int duracao, int ano, int qtd);
-        ~Album();
+        Album(string nome, int duracao, int ano, int qtd);  //contrutor
+        ~Album(); // destrutor 
+
+        // set e gets dos atributos da classe
         void set_nome(string nome);
         void set_duracao(int duracao);
         void set_anoLancamento(int anoLancamento);

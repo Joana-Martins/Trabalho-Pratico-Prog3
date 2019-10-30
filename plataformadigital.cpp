@@ -1,9 +1,12 @@
 #include"plataformadigital.h"
 
+//construtores 
 PlataformaDigital::PlataformaDigital(){}
 PlataformaDigital::PlataformaDigital(string nome){
     this->set_nome(nome);
 }
+
+//destrutor 
 PlataformaDigital::~PlataformaDigital(){
     for(Midia::Genero* genero:this->generos) delete genero;
     for(Assinante* assinante:this->assinantes) delete assinante;
@@ -15,12 +18,16 @@ PlataformaDigital::~PlataformaDigital(){
     }
     for(Album* album:this->albuns) delete album;
 }
+
+//sets e gets 
 void PlataformaDigital::set_nome(string nome){
     this->nome = nome;
 }        
 string PlataformaDigital::get_nome(){
     return this->nome;
 }
+
+//imprime genero 
 void PlataformaDigital::imprimeProdutos(string genero){
     for(int i=0;i<this->generos.size();i++){
         if(this->generos[i]->get_nome().compare(genero) == 0){
@@ -37,6 +44,8 @@ void inserirProduto(Midia* novoProduto, vector<Produtor*> produtores);
 void imprimeNoArquivo(ofstream &outfile);
 void exportarBiblioteca();
 */
+
+//gera os arquivos de saida 
 void PlataformaDigital::gerarRelatorios(){
     ofstream u;
     u.open("backup.txt");
@@ -179,7 +188,7 @@ void PlataformaDigital::gerarRelatorios(){
     }
 }
 
-void PlataformaDigital::carregaArquivoUsuarios(ifstream &usuarios){
+void PlataformaDigital::carregaArquivoUsuarios(ifstream &usuarios){ //lê o arquivo de usuarios os colocando na plataforma e checando exeções
     string s, codigo, tipo, nome;
     try{
         getline(usuarios, s, '\n');
@@ -202,7 +211,7 @@ void PlataformaDigital::carregaArquivoUsuarios(ifstream &usuarios){
     }
 }
 
-void PlataformaDigital::carregaArquivoGeneros(ifstream &generos){
+void PlataformaDigital::carregaArquivoGeneros(ifstream &generos){//lê o arquivo de generos os colocando na plataforma e checando exeções
     string s, sigla, nome;
     getline(generos, s, '\n');
 
@@ -213,7 +222,7 @@ void PlataformaDigital::carregaArquivoGeneros(ifstream &generos){
         this->generos.push_back(new Midia::Genero(nome, sigla));
     }
 }
-void PlataformaDigital::carregaArquivoMidias(ifstream &midias){
+void PlataformaDigital::carregaArquivoMidias(ifstream &midias){//lê o arquivo de midias os colocando na plataforma e checando exeções
     string s, codigo, nome, tipo, produtores, duracao, genero, temporada, album, codigoAlbum, anoPublicacao;
     getline(midias, s, '\n');
 
@@ -293,7 +302,7 @@ void PlataformaDigital::carregaArquivoMidias(ifstream &midias){
     }
 }
 
-void PlataformaDigital::carregaArquivoFavoritos(ifstream &favoritos){
+void PlataformaDigital::carregaArquivoFavoritos(ifstream &favoritos){//lê o arquivo de favoritos os colocando na plataforma e checando exeções
     string s, codigo, musica;
     getline(favoritos, s, '\n');
     try{
@@ -329,6 +338,8 @@ void PlataformaDigital::carregaArquivoFavoritos(ifstream &favoritos){
         assinante->quicksort_(assinante->conta_podcasts()+1,assinante->favoritos.size()-1);
         }
 }
+
+//métodos de ordenação 
 int PlataformaDigital::partition(int p, int r){
     Produtor* aux;
     string x = this->produtores[r]->get_nome();

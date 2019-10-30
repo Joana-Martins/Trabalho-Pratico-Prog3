@@ -11,6 +11,7 @@
 
 using namespace std;
 
+//Biblioteca que serve para testar as exeções que podem ser encontradas durante a execução do código
 void checa_se_numero(string palavra);
 void checa_se_float(string palavra);
 void checa_se_existe(string sigla, vector<Midia::Genero*> generos);

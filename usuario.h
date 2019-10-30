@@ -5,11 +5,13 @@
 
 using namespace std;
 
-class Usuario{
+class Usuario{//classe base para Produtor e Assinante 
     protected:
+      //métodos da classe que podem ser acessados também por classes herdadas 
       string nome;
       int codigo;
     public:
+      //métodos da classe, contrutores, destrutores, set e gets, impressão em arquivo
       Usuario();
       Usuario(string nome, int codigo);
       ~Usuario();
