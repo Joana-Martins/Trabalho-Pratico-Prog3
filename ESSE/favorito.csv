@@ -1,0 +1,334 @@
+4;Podcast;13;Feminist;77.91
+4;Podcast;31;History;47.19
+4;Música;42;Lelio;4.31
+4;Música;48;Dansband;6.21
+4;Música;84;Breakcore;8.35
+4;Música;89;Doo wop;4.15
+10;Podcast;24;Feminist;64.48
+10;Podcast;28;Business and finance;25.95
+10;Podcast;44;LGBT-related;106.23
+10;Podcast;47;Religion and spirituality;59.86
+10;Podcast;64;Feminist;5.47
+10;Música;2;Doo wop;9.96
+10;Música;46;Marrabenta;2.22
+10;Música;48;Dansband;6.21
+10;Música;56;Doo wop;8.6
+10;Música;62;Dansband;1.18
+10;Música;78;Doo wop;7.47
+10;Música;85;Marrabenta;3.9
+10;Música;94;Dansband;4.8
+10;Música;98;Marrabenta;3.45
+13;Podcast;5;Feminist;76.9
+13;Podcast;28;Business and finance;25.95
+13;Podcast;32;Business and finance;61.22
+13;Podcast;45;Religion and spirituality;65.34
+13;Podcast;52;Political;11.43
+13;Podcast;58;Film and television;21.22
+13;Música;18;Doo wop;9.1
+13;Música;21;Dansband;9.6
+13;Música;22;Lelio;3.9
+13;Música;27;Doo wop;6.53
+13;Música;48;Dansband;6.21
+13;Música;56;Doo wop;8.6
+15;Podcast;3;Music;103.64
+15;Podcast;12;History;68.74
+15;Podcast;24;Feminist;64.48
+15;Podcast;33;Feminist;90.36
+15;Podcast;43;Technology;106.58
+15;Podcast;44;LGBT-related;106.23
+15;Podcast;58;Film and television;21.22
+15;Podcast;65;Sports;84.35
+15;Podcast;69;Business and finance;3.62
+15;Podcast;86;Advice;110.84
+15;Podcast;90;Crime;86.7
+15;Podcast;91;Advice;36.9
+15;Música;1;Dansband;10.35
+15;Música;4;Dansband;8.1
+15;Música;16;Marrabenta;10.71
+15;Música;18;Doo wop;9.1
+15;Música;21;Dansband;9.6
+15;Música;23;Marrabenta;10.5
+15;Música;26;Dansband;6.35
+15;Música;30;Doo wop;5.99
+15;Música;41;Dansband;1.63
+15;Música;48;Dansband;6.21
+15;Música;63;Lelio;1.8
+15;Música;67;Marrabenta;2.81
+15;Música;75;Doo wop;1.47
+15;Música;87;Breakcore;1.19
+15;Música;98;Marrabenta;3.45
+17;Podcast;19;Business and finance;9.1
+17;Música;4;Dansband;8.1
+17;Música;16;Marrabenta;10.71
+17;Música;26;Dansband;6.35
+17;Música;30;Doo wop;5.99
+17;Música;59;Doo wop;2.22
+24;Podcast;14;Technology;79.86
+24;Podcast;25;LGBT-related;102.66
+24;Podcast;28;Business and finance;25.95
+24;Podcast;54;Talk;27.94
+24;Podcast;55;Science;53.7
+24;Podcast;64;Feminist;5.47
+24;Podcast;95;Feminist;21.28
+24;Podcast;96;Science fiction;48.49
+24;Podcast;99;Talk;13.28
+24;Música;9;Dansband;6.48
+24;Música;16;Marrabenta;10.71
+24;Música;18;Doo wop;9.1
+24;Música;22;Lelio;3.9
+24;Música;40;Marrabenta;2.97
+24;Música;53;Dansband;7.66
+24;Música;67;Marrabenta;2.81
+24;Música;84;Breakcore;8.35
+24;Música;98;Marrabenta;3.45
+31;Podcast;31;History;47.19
+31;Podcast;32;Business and finance;61.22
+31;Podcast;44;LGBT-related;106.23
+31;Podcast;45;Religion and spirituality;65.34
+31;Podcast;86;Advice;110.84
+31;Podcast;96;Science fiction;48.49
+31;Música;11;Marrabenta;4.71
+31;Música;16;Marrabenta;10.71
+31;Música;23;Marrabenta;10.5
+31;Música;94;Dansband;4.8
+33;Podcast;14;Technology;79.86
+33;Podcast;44;LGBT-related;106.23
+33;Música;4;Dansband;8.1
+33;Música;40;Marrabenta;2.97
+33;Música;66;Marrabenta;10.2
+33;Música;67;Marrabenta;2.81
+33;Música;88;Doo wop;2.49
+33;Música;93;Dansband;9.36
+34;Podcast;5;Feminist;76.9
+34;Podcast;14;Technology;79.86
+34;Podcast;20;LGBT-related;48.62
+34;Podcast;25;LGBT-related;102.66
+34;Podcast;31;History;47.19
+34;Podcast;33;Feminist;90.36
+34;Podcast;52;Political;11.43
+34;Podcast;60;Feminist;5.5
+34;Podcast;65;Sports;84.35
+34;Podcast;69;Business and finance;3.62
+34;Podcast;80;Law;116.23
+34;Música;6;Lelio;1.26
+34;Música;21;Dansband;9.6
+34;Música;22;Lelio;3.9
+34;Música;27;Doo wop;6.53
+34;Música;38;Lelio;3.95
+34;Música;41;Dansband;1.63
+34;Música;53;Dansband;7.66
+34;Música;59;Doo wop;2.22
+34;Música;67;Marrabenta;2.81
+34;Música;85;Marrabenta;3.9
+34;Música;87;Breakcore;1.19
+44;Podcast;3;Music;103.64
+44;Podcast;25;LGBT-related;102.66
+44;Podcast;32;Business and finance;61.22
+44;Podcast;36;Political;13.39
+44;Podcast;55;Science;53.7
+44;Podcast;58;Film and television;21.22
+44;Podcast;80;Law;116.23
+44;Podcast;90;Crime;86.7
+44;Música;15;Lelio;4.23
+44;Música;18;Doo wop;9.1
+44;Música;41;Dansband;1.63
+44;Música;46;Marrabenta;2.22
+44;Música;56;Doo wop;8.6
+44;Música;75;Doo wop;1.47
+44;Música;87;Breakcore;1.19
+44;Música;89;Doo wop;4.15
+44;Música;98;Marrabenta;3.45
+46;Podcast;19;Business and finance;9.1
+46;Podcast;36;Political;13.39
+46;Podcast;39;Video game;96.85
+46;Podcast;43;Technology;106.58
+46;Podcast;44;LGBT-related;106.23
+46;Podcast;45;Religion and spirituality;65.34
+46;Podcast;55;Science;53.7
+46;Podcast;69;Business and finance;3.62
+46;Podcast;81;Business and finance;13.34
+46;Podcast;83;Political;6.36
+46;Podcast;92;Music;108.89
+46;Podcast;95;Feminist;21.28
+46;Música;42;Lelio;4.31
+46;Música;59;Doo wop;2.22
+46;Música;75;Doo wop;1.47
+46;Música;88;Doo wop;2.49
+48;Podcast;10;Arts;6.64
+48;Podcast;25;LGBT-related;102.66
+48;Podcast;29;Political;50.38
+48;Podcast;90;Crime;86.7
+48;Música;30;Doo wop;5.99
+53;Podcast;8;Science fiction;104.57
+53;Podcast;12;History;68.74
+53;Podcast;29;Political;50.38
+53;Podcast;92;Music;108.89
+53;Música;9;Dansband;6.48
+53;Música;16;Marrabenta;10.71
+53;Música;30;Doo wop;5.99
+53;Música;84;Breakcore;8.35
+53;Música;87;Breakcore;1.19
+53;Música;97;Dansband;10.43
+56;Podcast;13;Feminist;77.91
+56;Podcast;49;Crime;107.12
+56;Música;11;Marrabenta;4.71
+56;Música;42;Lelio;4.31
+56;Música;66;Marrabenta;10.2
+56;Música;82;Breakcore;3.34
+57;Podcast;29;Political;50.38
+57;Podcast;31;History;47.19
+57;Podcast;32;Business and finance;61.22
+57;Podcast;47;Religion and spirituality;59.86
+57;Podcast;60;Feminist;5.5
+57;Podcast;73;Music;34.38
+57;Podcast;81;Business and finance;13.34
+57;Podcast;92;Music;108.89
+57;Podcast;95;Feminist;21.28
+57;Podcast;99;Talk;13.28
+57;Música;7;Breakcore;1.1
+57;Música;16;Marrabenta;10.71
+57;Música;23;Marrabenta;10.5
+57;Música;38;Lelio;3.95
+57;Música;63;Lelio;1.8
+57;Música;66;Marrabenta;10.2
+57;Música;70;Breakcore;7.64
+57;Música;82;Breakcore;3.34
+57;Música;84;Breakcore;8.35
+58;Podcast;14;Technology;79.86
+58;Podcast;20;LGBT-related;48.62
+58;Podcast;44;LGBT-related;106.23
+58;Podcast;51;Business and finance;15.81
+58;Podcast;52;Political;11.43
+58;Podcast;55;Science;53.7
+58;Podcast;60;Feminist;5.5
+58;Podcast;65;Sports;84.35
+58;Podcast;68;Educational;42.24
+58;Podcast;90;Crime;86.7
+58;Música;17;Lelio;4.23
+58;Música;34;Lelio;9.71
+58;Música;41;Dansband;1.63
+58;Música;53;Dansband;7.66
+58;Música;66;Marrabenta;10.2
+58;Música;78;Doo wop;7.47
+58;Música;87;Breakcore;1.19
+58;Música;88;Doo wop;2.49
+62;Podcast;52;Political;11.43
+62;Podcast;80;Law;116.23
+62;Podcast;96;Science fiction;48.49
+62;Música;7;Breakcore;1.1
+62;Música;18;Doo wop;9.1
+62;Música;50;Doo wop;5.3
+62;Música;71;Doo wop;9.94
+62;Música;78;Doo wop;7.47
+66;Podcast;36;Political;13.39
+66;Podcast;64;Feminist;5.47
+66;Música;74;Lelio;6.65
+69;Podcast;3;Music;103.64
+69;Podcast;10;Arts;6.64
+69;Podcast;12;History;68.74
+69;Podcast;13;Feminist;77.91
+69;Podcast;31;History;47.19
+69;Podcast;33;Feminist;90.36
+69;Podcast;36;Political;13.39
+69;Podcast;65;Sports;84.35
+69;Podcast;80;Law;116.23
+69;Podcast;86;Advice;110.84
+69;Podcast;90;Crime;86.7
+69;Podcast;91;Advice;36.9
+69;Podcast;95;Feminist;21.28
+69;Podcast;100;Business and finance;86.37
+69;Música;7;Breakcore;1.1
+69;Música;15;Lelio;4.23
+69;Música;21;Dansband;9.6
+69;Música;50;Doo wop;5.3
+69;Música;56;Doo wop;8.6
+69;Música;57;Marrabenta;8.5
+69;Música;59;Doo wop;2.22
+69;Música;74;Lelio;6.65
+69;Música;82;Breakcore;3.34
+71;Podcast;31;History;47.19
+71;Podcast;36;Political;13.39
+71;Podcast;39;Video game;96.85
+71;Podcast;43;Technology;106.58
+71;Podcast;47;Religion and spirituality;59.86
+71;Podcast;55;Science;53.7
+71;Podcast;73;Music;34.38
+71;Podcast;79;Comedy and humor;70.67
+71;Música;16;Marrabenta;10.71
+71;Música;23;Marrabenta;10.5
+71;Música;27;Doo wop;6.53
+71;Música;41;Dansband;1.63
+71;Música;42;Lelio;4.31
+71;Música;46;Marrabenta;2.22
+71;Música;48;Dansband;6.21
+71;Música;50;Doo wop;5.3
+71;Música;59;Doo wop;2.22
+71;Música;85;Marrabenta;3.9
+71;Música;93;Dansband;9.36
+82;Podcast;3;Music;103.64
+82;Podcast;8;Science fiction;104.57
+82;Podcast;12;History;68.74
+82;Podcast;19;Business and finance;9.1
+82;Podcast;24;Feminist;64.48
+82;Podcast;28;Business and finance;25.95
+82;Podcast;29;Political;50.38
+82;Podcast;47;Religion and spirituality;59.86
+82;Podcast;68;Educational;42.24
+82;Podcast;86;Advice;110.84
+82;Música;6;Lelio;1.26
+82;Música;18;Doo wop;9.1
+82;Música;27;Doo wop;6.53
+82;Música;46;Marrabenta;2.22
+82;Música;50;Doo wop;5.3
+82;Música;78;Doo wop;7.47
+82;Música;82;Breakcore;3.34
+82;Música;88;Doo wop;2.49
+86;Podcast;20;LGBT-related;48.62
+86;Podcast;25;LGBT-related;102.66
+86;Podcast;32;Business and finance;61.22
+86;Podcast;64;Feminist;5.47
+86;Podcast;72;Music;113.82
+86;Podcast;95;Feminist;21.28
+86;Música;11;Marrabenta;4.71
+86;Música;30;Doo wop;5.99
+86;Música;59;Doo wop;2.22
+86;Música;71;Doo wop;9.94
+86;Música;77;Marrabenta;8.28
+86;Música;89;Doo wop;4.15
+87;Podcast;13;Feminist;77.91
+87;Podcast;73;Music;34.38
+87;Podcast;90;Crime;86.7
+87;Podcast;100;Business and finance;86.37
+87;Música;40;Marrabenta;2.97
+87;Música;59;Doo wop;2.22
+87;Música;62;Dansband;1.18
+93;Podcast;51;Business and finance;15.81
+93;Podcast;54;Talk;27.94
+93;Podcast;60;Feminist;5.5
+93;Podcast;68;Educational;42.24
+93;Podcast;86;Advice;110.84
+93;Podcast;95;Feminist;21.28
+93;Música;34;Lelio;9.71
+93;Música;87;Breakcore;1.19
+93;Música;88;Doo wop;2.49
+94;Podcast;5;Feminist;76.9
+94;Podcast;19;Business and finance;9.1
+94;Podcast;20;LGBT-related;48.62
+94;Podcast;33;Feminist;90.36
+94;Podcast;69;Business and finance;3.62
+94;Podcast;73;Music;34.38
+94;Podcast;92;Music;108.89
+94;Podcast;96;Science fiction;48.49
+94;Música;2;Doo wop;9.96
+94;Música;7;Breakcore;1.1
+94;Música;21;Dansband;9.6
+94;Música;22;Lelio;3.9
+94;Música;27;Doo wop;6.53
+94;Música;30;Doo wop;5.99
+94;Música;38;Lelio;3.95
+94;Música;40;Marrabenta;2.97
+94;Música;42;Lelio;4.31
+94;Música;53;Dansband;7.66
+94;Música;62;Dansband;1.18
+94;Música;74;Lelio;6.65
+94;Música;77;Marrabenta;8.28
